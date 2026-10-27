@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8"> <!--acepta los caracteres especiales-->
+    <title>ACERIAS</title>
+    <link rel="stylesheet" href="../assets/css/Registro.css"> <!--conexion del archivo html con el css-->
+</head>
+
+<body>
+    <div class="contenedor-formulario">
+        <h2>Registro de Asociados - Acerias </h2>
+
+        <form id="FormRegistro" action="" method="POST">
+            <div class="grupo-input">
+                <label>Ingresar documento: </label>
+                <input id="documento" type="number" placeholder="Ej: 1053638452">
+                <!--placeholder es como el texto de ejemplo-->
+            </div>
+            <div class="grupo-input">
+                <label>Nombres: </label>
+                <input type="text" id="nombre" required placeholder="Ingrese Nombres completos">
+                <!--Required es cun campo que debe ser obligatorio-->
+            </div>
+            <div class="grupo-input">
+                <label>Apellidos: </label>
+                <input type="text" id="apellido" required placeholder="Ingrese Apellidos completos">
+            </div>
+            <div class="grupo-input">
+                <label>Fecha de Nacimiento: </label>
+                <input type="date" id="fechaNacimiento" required>
+            </div>
+            <div class="grupo-input">
+                <label>Dirección de Residencia: </label>
+                <input type="text" id="direccionResidencia" required placeholder="Cr5#15b-89">
+            </div>
+            <div class="grupo-input">
+                <label>Ciudad: </label>
+                <select id="ciudad" required>
+                    <option value="duitama">Duitama</option>
+                    <option value="sogamoso">Sogamoso</option>
+                    <option value="paipa">Paipa</option>
+                </select>
+            </div>
+            <div class="grupo-input">
+                <label>Telefono: </label>
+                <input type="text" id="telefono" required placeholder="3113224567">
+            </div>
+            <div class="grupo-input">
+                <label>Email: </label>
+                <input type="text" id="email" required placeholder="correo@ejemplo.com">
+            </div>
+            <div class="grupo-input">
+                <label>Genero: </label>
+
+                <div class="opcion-genero">
+                    <input type="radio" id="femenino" name="genero" value="femenino">
+                    <label>Femenino</label>
+                </div>
+
+                <div class="opcion-genero">
+                    <input type="radio" id="masculino" name="genero" value="masculino">
+                    <label>Masculino</label>
+                </div>
+
+                <div class="opcion-genero">
+                    <input type="radio" id="otro" name="genero" value="otro">
+                    <label>Otro</label>
+                </div>
+
+            </div>
+            <div class="grupo-botones">
+                <button type="submit">Guardar</button>
+                <button type="reset">Limpiar Formulario</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
