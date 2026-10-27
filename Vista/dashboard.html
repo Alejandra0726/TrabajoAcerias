@@ -9,20 +9,43 @@
     <title>CLUB ACERIAS - Panel principal</title>
 
     <style>
+        .header-mr{
+            background-color:rgb(179, 102, 250);
+            color: white;
+            padding: 20px 30px;
+        }
+        .modulo-card{
+            border-top: 4px solid #fac8ef;
+            border-radius: 10px;
+            transition: 0.2s;
+            cursor: pointer;
+            height: 100%;
+        }
+        .modulo-card.asociado{
+            border-top-color:#75035c
+        }
+        .modulo-card:hover{
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(225, 43, 195, 0.407) !important; 
+        }
         .icono-principal {
             font-size: 2rem;
-            color: #007bff;
+            color: #a50382;
+        }
+        .fondo{
+            background-color: hsl(300, 38%, 97%);
         }
     </style>
 </head>
 
-<body class="bg-light">
+<body class="fondo">
     <div class="header-mr d-flex justify-content-between align-items-center">
         <h3>CLUB ACERIAS - Panel principal</h3>
         <div class="text-end">
-            <small>Pepito Perez</small>
-            <button class="btn btn-danger btn-sm mt-1">
-                <i class="bi bi-person-fill"></i> Cerrar Sesion </button>
+            <small id="nombreUsuario"></small>
+            <button class="btn btn-danger btn-sm mt-1" onclick="cerrarSesion()">
+                <i class="bi bi-person-fill"></i> Cerrar Sesion</button>
+             
         </div>
     </div>
 
@@ -42,8 +65,8 @@
             </div>
             <div class="col-md-3"> <!--md-3 pantallas medianas-->
                 <div class="card modulo-card shadow-sm p-3">
-                    <i class="bi bi-people icono-principal"></i>
-                    <h4 class="text-primary">Asociados</h4>
+                   <i class="bi bi-currency-dollar icono-principal"></i>
+                    <h4 class="text-primary">Préstamos</h4>
                     <strong> Gestión de Préstamos</strong> <!--strong=negrilla-->
                     <p class="text-muted">
                         Administra la información de los préstamos, incluyendo detalles de los mismos y el historial de
@@ -53,18 +76,48 @@
             </div>
             <div class="col-md-3"> <!--md-3 pantallas medianas-->
                 <div class="card modulo-card shadow-sm p-3">
-                    <i class="bi bi-people icono-principal"></i>
-                    <h4 class="text-primary">Asociados</h4>
-                    <strong> Actividades</strong> <!--strong=negrilla-->
-                    <p class="text-muted">
+                    <i class="bi bi-calendar2-month icono-principal"></i>
+                    <h4 class="text-primary mt-2 ">Actividades</h4>
+                    <strong> Registro deActividades</strong> <!--strong=negrilla-->
+                    <p class="small text-muted mt-2">
                         Administra la información de las actividades, incluyendo detalles de las mismas y el historial
                         de
                         participación.
                     </p>
                 </div>
             </div>
+            <div class="col-md-3"> <!--md-3 pantallas medianas-->
+                <div class="card modulo-card shadow-sm p-3">
+                    <i class="bi bi-bar-chart-line icono-principal"></i>
+                    <h4 class="text-primary mt-2">Reportes</h4>
+                    <strong> Consultas y Saldos </strong> <!--strong=negrilla-->
+                    <p class="small text-muted">
+                        Ver reportes del Club.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="tarjetasAsociado" class="row g-4 d-none">
+            <div class="col-md-3">
+                <div class="card modulo-card asociado shadow-sm p-3">
+                    <i class="bi bi-person-vcard icono-principal"></i>
+                    <h4 class="text-dark mt-2"> Mi perfil </h4> <!--text-success= color del texto-->
+                    <p class="small text-muted"> Ver mis datos y mis préstamos.</p>
+
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="card modulo-card asociado shadow-sm p-3">
+                    <i class="bi bi-wallet-fill icono-principal"></i>
+                    <h4 class="text-dark mt-2"> Mis pagos  </h4> <!--text-success= color del texto-->
+                    <p class="small text-muted"> Ver abonos de mis préstamos.</p>
+
+                </div>
+
+
+            </div>
         </div>
     </div>
 </body>
-
+<script src="../Controlador/dashboard.js"></script>
 </html>
