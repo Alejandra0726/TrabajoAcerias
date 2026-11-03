@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body.fondo { background-color: hsl(300, 38%, 97%); }
+
+.header-mr {
+    background-color: rgb(179, 102, 250);
+    color: white;
+    padding: 20px 30px;
+    justify-content: center;
+}
+
+.form-card {
+    border-top: 4px solid #680375;
+    border-radius: 10px;
+}
+
+.form-card .seccion {
+    color: #640670;
+    font-weight: 600;
+    border-bottom: 2px solid #ad31e2;
+    padding-bottom: 4px;
+    margin: 8px 0 16px;
+}
+
+.form-label { font-weight: 500; }
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #5f134e;
+    box-shadow: 0 0 0 .2rem rgba(165, 3, 130, .2);
+}
+
+.btn-club {
+    background-color: #a50382;
+    border-color: #a50382;
+    color: #fff;
+}
+.btn-club:hover { background-color: #75035c; border-color: #75035c; color: #fff; }
+
+.btn-outline-club { border-color: #a50382; color: #a50382; }
+.btn-outline-club:hover { background-color: #a50382; color: #fff; }
