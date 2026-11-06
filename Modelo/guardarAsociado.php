@@ -30,7 +30,7 @@ try {
     }
 
 
-if(filter_var($datos['email'], FILTER_VALIDATE_EMAIL)){
+if(!filter_var($datos['email'], FILTER_VALIDATE_EMAIL)){
     http_response_code(400);
     throw new Exception("Email inválido");
 
@@ -55,8 +55,8 @@ if($resultado){
         http_response_code(500);
         echo json_encode(["success" => false, "mensaje" => "Error de base de datos: " . $e->getMessage()]);
     }
+
     // errores de codigo por ejemplo metodo HTTP,datos invalidos.
 } catch (Exception $e) {
-    echo json_encode(["success" => false, "mensaje" => $e->getMessage()]);
-  
+    echo json_encode(["success" => false, "mensaje" => $e->getMessage()]);  
 }
