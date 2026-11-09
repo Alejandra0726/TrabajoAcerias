@@ -8,8 +8,15 @@ formulario.addEventListener("submit", async function (event) {
 
     //Lee los campos del formularios y los convierte en un objeto 
     const asociado = Object.fromEntries(new FormData(formulario).entries());
+    if (asociado.password !== asociado.confirmarPassword) {
+        document.getElementById("mensajeRegistro").textContent = 
+        "Las contraseñas no coinciden";
+    }
+    delete asociado.confirmarPassword; // Eliminar el campo confirmarPassword del objeto asociado
 
     botonGuardar.disabled = true; // Desahabilitar el boton mientras se procesa la solicitud 
+    document.getElementById("mensajeRegistro").textContent = "Guardando...";
+    document.getElementById("mensajeRegistro").dataset.tipo = '';
 
     try {
         const respuesta = await fetch(formulario.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(asociado) });
