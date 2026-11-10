@@ -8,9 +8,18 @@ formulario.addEventListener("submit", async function (event) {
 
     //Lee los campos del formularios y los convierte en un objeto 
     const asociado = Object.fromEntries(new FormData(formulario).entries());
+
+
+    // Validar que la contraseña tenga mínimo 8 caracteres
+    if (Array.from(asociado.password).length < 8) {
+        document.getElementById("mensajeRegistro").textContent =
+            "La contraseña debe tener mínimo 8 caracteres";
+        return;
+    }
     if (asociado.password !== asociado.confirmarPassword) {
-        document.getElementById("mensajeRegistro").textContent = 
-        "Las contraseñas no coinciden";
+        document.getElementById("mensajeRegistro").textContent =
+            "Las contraseñas no coinciden";
+        return;
     }
     delete asociado.confirmarPassword; // Eliminar el campo confirmarPassword del objeto asociado
 
