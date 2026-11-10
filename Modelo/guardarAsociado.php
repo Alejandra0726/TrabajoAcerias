@@ -10,7 +10,7 @@ try {
     throw new Exception("Método HTTP no permitido");
   }
 
-  //leer el contenudo JSON de la solicitud enviada por fetch 
+  //leer el contenido JSON de la solicitud enviada por fetch 
   $json = file_get_contents('php://input');
 
     //decodificar el JSON en un array asociativo json_decode JSON-PHP
