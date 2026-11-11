@@ -15,7 +15,7 @@ formulario.addEventListener('submit', async function (e) {
             ),
         });
 
-        alert(respuesta);
+        
 
         const resultado = await respuesta.json();
 

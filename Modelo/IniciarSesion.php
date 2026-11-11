@@ -1,6 +1,6 @@
 <?php
 
-session_start();  // Inicia la sesión para poder almacenar información del usuario
+session_start();  // Inicia la sesión para poder almacenar o traer información del usuario o traer una ya existente 
 
 header("Content-Type: application/json; charset=UTF-8");
 
