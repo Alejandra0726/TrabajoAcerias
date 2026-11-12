@@ -11,7 +11,7 @@ try{
     //saltar a cathch y mostrar el mensaje de error
     throw new Exception("Método HTTP no permitido");
     }
-    $datos = json_decode(file_get_contents('php://input'), true); //Lee el contenido de JavaScript 
+    $datos = json_decode(file_get_contents('php://input'), true); //Lee el contenido de JavaScript , permite leer el cuerpo de la petición HTTP.
     
     // Validar que los datos sean un array y que no haya errores en la decodificación JSON
     if(!is_array($datos) || json_last_error() !== JSON_ERROR_NONE) {
@@ -26,7 +26,7 @@ try{
         http_response_code(400);
         throw new Exception("Email o contraseña son inválidos");
     }
-    require_once __DIR__ . '/../Config/conexion.php';
+    require_once __DIR__ . '/../Config/conexion.php'; 
     $conexion = (new Conexion()) -> conectar();
 
     $consulta = $conexion-> prepare("SELECT * FROM asociados WHERE email = :email");
