@@ -19,7 +19,7 @@ async function solicitarApi(metodo, datos) {
         window.location.href = "login.html";
     }
 
-    if (!respuesta.ok || !resultado.sucess) {
+    if (!respuesta.ok || !resultado.success) {
         throw new Error(resultado.mensaje || "Error en la solicitud");
     }
 
@@ -34,6 +34,8 @@ async function cargarActividades() {
         //configurarAcciones();
 
         actividades = resultado.actividades;
+        mostrarActividades();
+
     } catch (error) {
         alert("Error al cargar las actividades: " + error.message);
     }
@@ -48,12 +50,12 @@ function mostrarActividades() {
         celda.colSpan = esAdministrador ? 5 : 4;
         celda.className = "text-center py-4 text-muted";
         celda.textContent = "No hay actividades disponibles.";
-        File.append(celda);
+        fila.append(celda);
         listaActividades.append(fila);
         return;
     }
 
-    actividades - forEach((actividad) => {
+    actividades.forEach((actividad) => {
         const fila = document.createElement("tr");
         fila.append(
             crearCelda(actividad.nombreActividad),
@@ -73,16 +75,16 @@ function mostrarActividades() {
             botonEditar.type = "button";
             botonEditar.className = "btn btn-sm btn outline-primary me-2";
             botonEditar.innerHTML = '<i class="bi bi-pencil.square"></i>';
-            botonEditar.addEventListener("click", () => abriEdicion()(actividad));
+            botonEditar.addEventListener("click", () => abriEdicion(actividad));
 
             const botonEliminar = document.createElement("button");
             botonEliminar.type = "button";
             botonEliminar.className = "btn btn-sm btn outline-primary me-2";
             botonEliminar.innerHTML = '<i class="bi bi-trash"></i>';
-            botonEliminar.addEventListener("click", () => eliminarActividad()(actividad),
+            botonEliminar.addEventListener("click", () => eliminarActividad(actividad),
             );
 
-            acciores.append(botonEditar, botonEliminar);
+            acciones.append(botonEditar, botonEliminar);
             fila.append(acciones);
         }
         listaActividades.append(fila);

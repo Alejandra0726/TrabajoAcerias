@@ -5,7 +5,7 @@ session_start();
 header("Content-Type: application/json ;charset=UTF-8");
 
 function leerDatos() {
-    $datos = json_decode(file_get_contents("php://input"), true);
+    $datos = json_decode(file_get_contest("php://input"), true);
     if (json_last_error() !== JSON_ERROR_NONE) {
         http_response_code(400);
         throw new Exception("Error al decodificar JSON: " . json_last_error_msg());
@@ -14,7 +14,7 @@ function leerDatos() {
 }
 
 try {
-    if (!isset($_SESSION["documento"], $_SESSION["rol"])) {
+    if (!isset($_SESSION["documento"],$_SESSION["rol"])) {
         http_response_code(401);
         throw new Exception("Inicia sesión para consultar las actividades");  
     }
@@ -26,7 +26,7 @@ try {
         throw new Exception("Metodo HTTP no permitido");  
     }
 
-    if ($metodo !=== "GET" && $_SESSION["rol"] !=== "admin") {
+    if ($metodo !== "GET" && $_SESSION["rol"] !== "admin") {
         http_response_code(403);
         throw new Exception("No tienes permisos para realizar esta acción");
     }
@@ -34,7 +34,7 @@ try {
     require_once __DIR__ . "/Actividad.php";
     $actividad = new Actividad();
 
-    switch($method){
+    switch($metodo){
         case 'GET':
             $resultado= [
                 "success" => true,
@@ -44,13 +44,13 @@ try {
             http_response_code(200);
             break;
         case 'POST':
-            $datos=validarActividad(leerDatos());
+            //$datos=validarActividad(leerDatos());
             $actividad->guardar($datos);
             $resultado = [
                 "success" => true,
                 "message" => "Actividad creada exitosamente"
             ];
-            http_response_code(201)
+            http_response_code(201);
             break;
     }
     echo json_encode($resultado);

@@ -8,8 +8,8 @@ class Actividad{
 
     public function __construct()
     {
-        $conexionDB = new Conexion();
-        $this->conexion = $conexionDB->conectar();
+        $conexionDb = new Conexion();
+        $this->conexion = $conexionDb->conectar();
     }
 
     public function obtenerActividades(){
@@ -24,11 +24,11 @@ class Actividad{
         $sql = "INSERT INTO actividades (nombreActividad, fechaEvento, municipio)
             VALUES (:nombreActividad, :fechaEvento, :municipio)";
         $consulta = $this->conexion->prepare($sql);
-        return $consulta->execute({
+        return $consulta->execute([
             ":nombreActividad" => $datos['nombreActividad'],
             ":fechaEvento" => $datos['fechaEvento'],
             ":municipio" => $datos['municipio']
-        });
+        ]);
     }
 
     public  function eliminar($idActividad)
