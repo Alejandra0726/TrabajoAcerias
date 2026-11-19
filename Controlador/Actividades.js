@@ -1,6 +1,9 @@
 const listaActividades = document.getElementById("listaActividades");//su valor permance unico 
 let esAdministrador = false; //su valor puede cambiar 
 let actividades = [];
+let accionesConfiguradas = false;
+const formularioActividad=document.getElementById("FormActividad");
+
 
 async function solicitarApi(metodo, datos) {
     const opciones = {
@@ -31,7 +34,7 @@ async function cargarActividades() {
         const resultado = await solicitarApi("GET");
         esAdministrador = resultado.rol === "admin";
 
-        //configurarAcciones();
+        configurarAcciones();
 
         actividades = resultado.actividades;
         mostrarActividades();
@@ -61,9 +64,9 @@ function mostrarActividades() {
             crearCelda(actividad.nombreActividad),
             crearCelda(actividad.fechaEvento),
             crearCelda(actividad.municipio),
-            crearCelda(actividad.totalRecaudado === null ? "Pendiente" 
-                : Number(actividad.totalRecaudado).toLocaleString("es-CO", { 
-                    style: "currency", currency: "COP" ,
+            crearCelda(actividad.totalRecaudado === null ? "Pendiente"
+                : Number(actividad.totalRecaudado).toLocaleString("es-CO", {
+                    style: "currency", currency: "COP",
                 }),
             ),
         );
@@ -74,14 +77,15 @@ function mostrarActividades() {
             const botonEditar = document.createElement("button");
             botonEditar.type = "button";
             botonEditar.className = "btn btn-sm btn outline-primary me-2";
-            botonEditar.innerHTML = '<i class="bi bi-pencil.square"></i>';
-            botonEditar.addEventListener("click", () => abriEdicion(actividad));
+            botonEditar.innerHTML = '<i class="bi bi-pencil-square"></i>';
+            botonEditar.addEventListener("click", () => abrirEdicion(actividad));
 
             const botonEliminar = document.createElement("button");
             botonEliminar.type = "button";
             botonEliminar.className = "btn btn-sm btn outline-primary me-2";
             botonEliminar.innerHTML = '<i class="bi bi-trash"></i>';
-            botonEliminar.addEventListener("click", () => eliminarActividad(actividad),
+            botonEliminar.addEventListener("click", () =>
+                eliminarActividad(actividad),
             );
 
             acciones.append(botonEditar, botonEliminar);
@@ -94,8 +98,76 @@ function mostrarActividades() {
 
 function crearCelda(texto) {
     const celda = document.createElement("td");
-        celda.textContent = texto;
-        return celda;
+    celda.textContent = texto;
+    return celda;
 }
+
+async function eliminarActividad(actividad) {
+    const confirmar = window.confirm(`¿Desea eliminar la actividad "${actividad.nombreActividad}"?`,);
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+        await solicitarApi("DELETE", { idActividad: actividad.idActividad });
+        await cargarActividades();
+        alert("Actividad eliminada correctamente");
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+function configurarAcciones() {
+    if (accionesConfiguradas) {
+        return;
+    }
+    const botonNueva = document.getElementById("btnNuevaActividad");
+    const encabezadoAcciones = document.getElementById("encabezadoAcciones");
+
+    if (esAdministrador) {
+        botonNueva.classList.remove("d-none");
+        encabezadoAcciones.classList.remove("d-none");
+        accionesConfiguradas = true;
+        return;
+    }
+}
+function abrirEdicion(actividad){
+    formularioActividad.reset();
+    document.getElementById("idActividad").value = actividad.idActividad;
+    document.getElementById("nombreActividad").value = actividad.nombreActividad;
+    document.getElementById("fechaEvento").value = actividad.fechaEvento;
+    document.getElementById("municipio").value = actividad.municipio;
+    document.getElementById("totalRecaudado").value = actividad.totalRecaudado ?? "";
+
+    document.getElementById("totalRecaudado").classList.remove("d-none");
+        formularioActividad.addEventListener("submit",async (evento) => {
+    evento.preventDefault(); //evita que se recargue la pagina 
+    const idActividad=document.getElementById("idActividad").value;
+
+    const datos = {
+        nombreActividad:document.getElementById("nombreActividad").value.trim(),
+        fechaEvento:document.getElementById("fechaEvento").value,
+        municipio:document.getElementById("municipio").value.trim(),
+    }
+    if (idActividad) {
+        datos.idActividad = Number(idActividad);
+        const total = document.getElementById("totalRecaudo").value;
+        datos.totalRecaudado = total==="" ? null : Number(total);
+    }
+
+    try{
+        await solicitarApi(idActividad ? "PUT" : "POST",datos);
+        alert("Actualizada Correctamente");
+        cargarActividades();
+    } catch (error) {
+        alert(error.message);
+    }
+
+
+
+});
+}
+
 
 cargarActividades();

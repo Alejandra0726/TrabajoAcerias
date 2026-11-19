@@ -5,7 +5,7 @@ session_start();
 header("Content-Type: application/json ;charset=UTF-8");
 
 function leerDatos() {
-    $datos = json_decode(file_get_contest("php://input"), true);
+    $datos = json_decode(file_get_contents("php://input"), true);
     if (json_last_error() !== JSON_ERROR_NONE) {
         http_response_code(400);
         throw new Exception("Error al decodificar JSON: " . json_last_error_msg());
@@ -93,7 +93,7 @@ try {
             http_response_code(200);
             break;
         case "DELETE":
-            $datos = leerDatos():
+            $datos = leerDatos();
             $idActividad = validarId($datos["idActividad"] ?? null);
 
              if (!$actividad->eliminar($idActividad)) {
