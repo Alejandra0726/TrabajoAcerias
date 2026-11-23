@@ -15,22 +15,24 @@ class Asociado{
     private $conexion;
 
 
-    public function __construct($datos)
-    { //constructor que recibe un array asociativo con los datos del asociado
-        $this->documento =$datos['documento'];
-        $this->nombres =$datos['nombres'];
-        $this->apellidos =$datos['apellidos'];
-        $this->fechaNacimiento =$datos['fechaNacimiento'];
-        $this->genero =$datos['genero'];
-        $this->direccionResidencia =$datos['direccionResidencia'];
-        $this->ciudad =$datos['ciudad'];
-        $this->telefono =$datos['telefono'];
-        $this->email =$datos['email'];
+  public function __construct($datos = null)
+{
+    if ($datos !== null) {
+        $this->documento = $datos['documento'];
+        $this->nombres = $datos['nombres'];
+        $this->apellidos = $datos['apellidos'];
+        $this->fechaNacimiento = $datos['fechaNacimiento'];
+        $this->genero = $datos['genero'];
+        $this->direccionResidencia = $datos['direccionResidencia'];
+        $this->ciudad = $datos['ciudad'];
+        $this->telefono = $datos['telefono'];
+        $this->email = $datos['email'];
         $this->password = password_hash($datos['password'], PASSWORD_DEFAULT);
-
-        $conexionDB = new Conexion();
-        $this->conexion = $conexionDB->conectar();
     }
+
+    $conexionDB = new Conexion();
+    $this->conexion = $conexionDB->conectar();
+}
 
 public function guardar() 
 {
@@ -159,4 +161,3 @@ public function guardar()
     }
 }
 
-}
