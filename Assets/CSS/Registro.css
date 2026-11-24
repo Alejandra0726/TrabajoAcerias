@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
 }
-body.fondo { background-color: hsl(300, 38%, 97%); }
+body.fondo { background-color: hsl(0, 0%, 100%); }
 
 .header-mr {
     background-color: rgb(179, 102, 250);
@@ -47,4 +47,15 @@ body.fondo { background-color: hsl(300, 38%, 97%); }
     background-color: #9C27B0 !important;
     color: white !important;
     border-color: #9C27B0 !important;
+}
+
+/* Color del encabezado de las tablas */
+
+.table .encabezado > th {
+    background-color:  #ad31e2 !important;
+    color: white !important;
+    --bs-table-bg: #a0368990;
+    --bs-table-color: white;
+    --bs-table-accent-bg: transparent;
+    box-shadow: none !important;
 }

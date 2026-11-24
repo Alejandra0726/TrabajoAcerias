@@ -1,6 +1,6 @@
 <?php
 //Manejar la respuesta en un JSON 
-header ("Content-Type: application/json; charset=utf-8") 
+header ("Content-Type: application/json; charset=utf-8") ;
 
  if ($_SERVER['REQUEST_METHOD']!=='POST') {
     http_response_code(405);
@@ -22,6 +22,6 @@ header ("Content-Type: application/json; charset=utf-8")
 
     session_destroy(); //destruye los datos de la sesion 
 
-    echo json_decode([
+    echo json_encode([
         "success" => true,
     ]);
