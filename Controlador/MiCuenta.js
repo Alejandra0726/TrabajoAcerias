@@ -19,19 +19,17 @@ async function cargarMiCuenta() {
             mostrarPerfil(resultado.asociado);
         }
 
-        // Mostrar información de Mis Préstamos
+
 
         if (document.getElementById("tablaPrestamos")) {
             mostrarPrestamos(resultado.prestamos);
         }
 
-        // Mostrar información de Mis Pagos
 
         if (document.getElementById("tablaPagos")) {
             mostrarPagos(resultado.pagos);
         }
 
-        // Mostrar información de Mis Actividades
 
         if (document.getElementById("tablaActividades")) {
             mostrarActividades(resultado.actividades);
@@ -134,7 +132,6 @@ function mostrarPagos(pagos) {
 function mostrarActividades(actividades) {
 
     const tabla = document.getElementById("tablaActividades");
-
     tabla.replaceChildren();
 
     const hoy = new Intl.DateTimeFormat("sv-SE", {
@@ -145,68 +142,71 @@ function mostrarActividades(actividades) {
     }).format(new Date());
 
     if (actividades.length === 0) {
-
         const fila = document.createElement("tr");
         const celda = document.createElement("td");
-
-        celda.colSpan = 5;
+        celda.colSpan = 7;
         celda.className = "text-center text-muted py-4";
         celda.textContent = "No hay actividades disponibles.";
-
         fila.append(celda);
         tabla.append(fila);
-
         return;
     }
 
     actividades.forEach((actividad) => {
-
         const fila = document.createElement("tr");
-
         const inscrito = Number(actividad.participa) === 1;
         const finalizada = actividad.fechaEvento < hoy;
+        const inscripcionesCerradas = actividad.fechaEvento <= hoy;
+
+        let estadoActividad = "Disponible";
+        if (finalizada) {
+            estadoActividad = "Finalizada";
+        } else if (inscripcionesCerradas) {
+            estadoActividad = "Inscripciones cerradas";
+        }
+
+        // El importe solo se muestra a quien participó, cuando ya se registró el recaudo.
+        let monto = "No participa";
+        if (inscrito) {
+            if (!finalizada) {
+                monto = "Pendiente";
+            } else if (actividad.montoAsignado === null) {
+                monto = "Pendiente de recaudo";
+            } else {
+                monto = formatoDinero(actividad.montoAsignado);
+            }
+        }
 
         const valores = [
             actividad.nombreActividad,
             actividad.fechaEvento,
             actividad.municipio,
-            inscrito ? "Inscrito" : "Sin inscripción"
+            inscrito ? "Inscrito" : "Sin inscripción",
+            estadoActividad,
+            monto
         ];
 
         valores.forEach((valor) => {
-
             const celda = document.createElement("td");
-
             celda.textContent = valor;
-
             fila.append(celda);
         });
 
         const accion = document.createElement("td");
-
         const boton = document.createElement("button");
-
         boton.type = "button";
         boton.className = "btn btn-sm btn-club";
 
         if (inscrito) {
-
             boton.textContent = "Inscrito";
             boton.disabled = true;
-
-        } else if (finalizada) {
-
-            boton.textContent = "Finalizada";
+        } else if (inscripcionesCerradas) {
+            boton.textContent = finalizada ? "Finalizada" : "Cerrada";
             boton.disabled = true;
-
         } else {
-
             boton.textContent = "Participar";
-
             boton.addEventListener("click", () => {
-
                 inscribirmeEnActividad(actividad.idActividad, boton);
-
             });
         }
 

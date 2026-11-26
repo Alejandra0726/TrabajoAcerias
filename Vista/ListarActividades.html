@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -14,23 +13,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <!-- Archivo CSS personalizado -->
-     <link rel="stylesheet" href="../Assets/CSS/Registro.css">
+    <link rel="stylesheet" href="../Assets/CSS/Registro.css">
 
 </head>
 
 <body class="fondo">
 
-    <!-- Encabezado -->
-    <header class="header-mr d-flex align-items-center gap-3">
+    <div class="header-mr d-flex justify-content-between align-items-center">
 
-        <h1 class="h3 mb-0">Actividades del club</h1>
+        <h3 class="mb-0">Actividades del club</h3>
 
         <a href="dashboard.html" class="btn btn-outline-light">
             <i class="bi bi-arrow-left"></i>
             Volver al panel
         </a>
 
-    </header>
+    </div>
 
     <main class="container py-4">
 
@@ -40,36 +38,120 @@
                 Listado de actividades
             </h2>
 
-            <a href="RegistroActividades.html"
-               class="btn btn-club d-none"
-               id="btnNuevaActividad">
+            <a href="RegistroActividades.html" class="btn btn-club d-none" id="btnNuevaActividad">
 
                 <i class="bi bi-plus-lg"></i>
                 Nueva Actividad
 
             </a>
+            <a href="Participaciones.html" class="btn btn-club">
+
+                <i class="bi bi-people-fill"></i>
+                Participaciones
+
+            </a>
+
+
+        </div>
+
+        <!-- Formulario de filtros -->
+
+        <div class="card shadow-sm form-card p-3 mb-4">
+
+            <form id="FormFiltro">
+
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-md-4">
+
+                        <label class="form-label">Filtrar por</label>
+
+                        <select id="filtro" class="form-select">
+
+                            <option value="todos">
+                                Todas las actividades
+                            </option>
+
+                            <option value="cantidad">
+                                Cantidad de actividades por año
+                            </option>
+
+                            <option value="municipio">
+                                Municipio
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4 d-none" id="grupoAnio">
+
+                        <label class="form-label">Año</label>
+
+                        <input type="number" id="anio" class="form-control" value="2018">
+
+                    </div>
+
+                    <div class="col-md-4 d-none" id="grupoMunicipio">
+
+                        <label class="form-label">Municipio</label>
+
+                        <select id="filtroMunicipio" class="form-select">
+
+                            <option value="duitama">Duitama</option>
+                            <option value="sogamoso">Sogamoso</option>
+                            <option value="paipa">Paipa</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-auto">
+
+                        <button type="submit" class="btn btn-club">
+                            <i class="bi bi-search"></i>
+                            Consultar
+                        </button>
+
+                        <button type="button" id="btnLimpiar" class="btn btn-outline-club">
+                            Limpiar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- Cantidad de actividades -->
+
+        <div class="card shadow-sm form-card p-3 mb-4 d-none" id="contenedorCantidad">
+
+            <h6 class="seccion">Cantidad de actividades realizadas</h6>
+
+            <h3 id="cantidadActividades">0</h3>
 
         </div>
 
         <!-- Tabla de actividades -->
-        <div class="card shadow-sm form-card">
+        <div class="card shadow-sm form-card" id="contenedorTabla">
 
             <div class="table-responsive">
 
                 <table class="table table-striped table-hover align-middle mb-0">
 
-                    <thead class="table-primary">
-                    
+                    <thead class="table">
 
-                       <tr>
+
+                        <tr class="encabezado">
                             <th scope="col">Actividad</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Municipio</th>
                             <th scope="col">Total recaudado</th>
 
-                            <th id="encabezadoAcciones"
-                                class="d-none"
-                                scope="col">
+                            <th id="encabezadoAcciones" class="d-none" scope="col">
                                 Acciones
                             </th>
                         </tr>
@@ -93,20 +175,14 @@
     <!-- Notificaciones -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
 
-        <div id="toastActividad"
-             class="toast align-items-center border-0"
-             role="status"
-             aria-live="polite"
-             aria-atomic="true">
+        <div id="toastActividad" class="toast align-items-center border-0" role="status" aria-live="polite"
+            aria-atomic="true">
 
             <div class="d-flex">
 
                 <div id="mensajeActividades" class="toast-body"></div>
 
-                <button type="button"
-                        class="btn-close me-2 m-auto"
-                        data-bs-dismiss="toast"
-                        aria-label="Cerrar">
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar">
                 </button>
 
             </div>
@@ -121,4 +197,5 @@
 
 
 </body>
+
 </html>
